@@ -41,7 +41,7 @@ app.activity(ActivityTypes.Message, async (context, state) => {
   );
   for (const message of chatMessages.value) {  
     //check if the message is from the bot application
-    if(!message.from.application)
+    if(!message.from.application & message.chatId != null)
     {
       messageArray.push(message.body.content);
     } 
@@ -56,8 +56,8 @@ app.activity(ActivityTypes.Message, async (context, state) => {
   
   // search the user query in Azure AI Search
   const aiSearch = await doSemanticHybridSearch(context.activity.text);
-  await context.sendActivity("Searching in the documentation... " + aiSearch.document.chunk);
-
+  await context.sendActivity("Searching in the documentation...🤖...Bip...Bap...Bop...");
+  await context.sendActivity(aiSearch.document.chunk);
 });
 
 app.message("/reset", async (context, state) => {
