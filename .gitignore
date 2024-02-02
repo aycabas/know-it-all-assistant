@@ -1,6 +1,7 @@
 # TeamsFx files
 env/.env.*.user
 env/.env.local
+env/.env.dev
 appPackage/build
 
 # dependencies
@@ -22,3 +23,4 @@ devTools/
 .localConfigs.testTool
 .notification.localstore.json
 .notification.testtoolstore.json
+output/

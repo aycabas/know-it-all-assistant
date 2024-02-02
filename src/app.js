@@ -1,7 +1,7 @@
-const { MemoryStorage, ActivityTypes } = require("botbuilder");
+const { MemoryStorage, ActivityTypes, CardFactory } = require("botbuilder");
 const config = require("./config");
 const graph = require("./graph");
-
+const {doSemanticHybridSearch} = require("./aisearch");
 initializeGraph(config);
 
 function initializeGraph(config) {
@@ -40,17 +40,24 @@ app.activity(ActivityTypes.Message, async (context, state) => {
     context.activity.conversation.id
   );
   for (const message of chatMessages.value) {  
-    //check if the message is from the bot
+    //check if the message is from the bot application
     if(!message.from.application)
     {
       messageArray.push(message.body.content);
     } 
   }
-  console.log(messageArray);
+
+  // add previous messages in the group chat into the input
   state.temp.input = messageArray.toString();
+
+  // send user query and previous messages in the chat to OpenAI
   const result = await planner.beginTask(context,state);
-  console.log(result.commands[0].response);
   await context.sendActivity(result.commands[0].response);
+  
+  // search the user query in Azure AI Search
+  const aiSearch = await doSemanticHybridSearch(context.activity.text);
+  await context.sendActivity("Searching in the documentation... " + aiSearch.document.chunk);
+
 });
 
 app.message("/reset", async (context, state) => {

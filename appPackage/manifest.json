@@ -15,14 +15,14 @@
         "outline": "outline.png"
     },
     "name": {
-        "short": "know-it-all-assistant${{APP_NAME_SUFFIX}}",
-        "full": "full name for know-it-all-assistant"
+        "short": "Dev Guide",
+        "full": "Developer Guide powered by OpenAI"
     },
     "description": {
-        "short": "short description for know-it-all-assistant",
-        "full": "full description for know-it-all-assistant"
+        "short": "AI assistant for developer community and developer products",
+        "full": "AI assistant that knows everything about Cloud Advocacy, developer community and developer products"
     },
-    "accentColor": "#FFFFFF",
+    "accentColor": "#40C840",
     "bots": [
         {
             "botId": "${{BOT_ID}}",
